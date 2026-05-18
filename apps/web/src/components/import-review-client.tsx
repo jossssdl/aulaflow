@@ -102,16 +102,42 @@ export function ImportReviewClient() {
     setSession(nextSession);
   }
 
-  function approveImport() {
+  async function approveImport() {
     if (!session || errorCount > 0) {
       return;
     }
-    const nextSession = {
-      ...session,
-      approvedAt: new Date().toISOString(),
-    };
-    saveImportSession(nextSession);
-    setSession(nextSession);
+    setIsRunning(true);
+    setError(null);
+
+    try {
+      const response = await fetch("/api/imports/approve", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(session.payload),
+      });
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.error || "No se pudo guardar la importación.");
+      }
+
+      const nextSession = {
+        ...session,
+        approvedAt: new Date().toISOString(),
+      };
+      saveImportSession(nextSession);
+      setSession(nextSession);
+    } catch (saveError) {
+      setError(
+        saveError instanceof Error
+          ? saveError.message
+          : "Error al intentar guardar la importación en la base de datos.",
+      );
+    } finally {
+      setIsRunning(false);
+    }
   }
 
   async function runSolver() {
@@ -187,7 +213,14 @@ export function ImportReviewClient() {
             <h1 className="mt-2 text-2xl font-semibold tracking-normal sm:text-3xl">
               Revisar importacion
             </h1>
-            <p className="mt-1 text-sm text-muted-foreground">
+            <div className="flex flex-wrap items-center gap-3 text-sm font-medium mt-2">
+              <a href="/" className="text-muted-foreground hover:text-foreground transition-colors">Dashboard</a>
+              <span className="text-muted-foreground/50">·</span>
+              <a href="/imports" className="text-primary hover:text-primary/80 transition-colors">Importar Datos</a>
+              <span className="text-muted-foreground/50">·</span>
+              <a href="/assignment-runs" className="text-muted-foreground hover:text-foreground transition-colors">Corridas de Asignación</a>
+            </div>
+            <p className="mt-2 text-xs text-muted-foreground">
               Corrige datos antes de aprobar y ejecutar validacion.
             </p>
           </div>

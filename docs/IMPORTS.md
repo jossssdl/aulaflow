@@ -92,15 +92,19 @@ La pantalla de revision permite:
 
 ## Persistencia
 
-En esta fase, la revision usa almacenamiento local del navegador para no bloquear el flujo cuando no hay base configurada.
+La persistencia de la Fase 4 ha sido completamente desarrollada e integrada mediante el endpoint `/api/imports/approve`. El flujo opera de la siguiente manera:
 
-La estructura queda preparada para persistir en PostgreSQL/Supabase:
-
-- Guardar grupos nuevos.
-- Guardar aulas nuevas si no existen.
-- Guardar horarios.
-- Guardar asignaciones actuales.
-- Asociar todo a `institution_id` y `academic_period_id`.
+1. **Guardado Temporal**: Mientras el administrador realiza ediciones y correcciones en caliente, los cambios se retienen reactivamente en el `localStorage` del navegador.
+2. **Confirmación y Envío**: Al hacer clic en "Confirmar importación", el cliente realiza una petición `POST` al endpoint `/api/imports/approve` enviando el payload completo con los cambios del usuario.
+3. **Persistencia Relacional (PostgreSQL)**:
+   - Si no hay una base de datos conectada (modo local/demo), el sistema responde indicando el modo demostración y mantiene los datos locales sin interrupciones.
+   - Si la base de datos está disponible (`getDbPool`), se inicia una **transacción SQL** explícita (`BEGIN` / `COMMIT` / `ROLLBACK`).
+   - Se realiza la conversión determinista y estable de IDs temporales a formato estándar UUID (`uuid`) para evitar colisiones de tipos en PostgreSQL.
+   - Se insertan o actualizan aulas (`rooms`) con su tipo y capacidad.
+   - Se insertan o actualizan grupos (`groups`).
+   - Se registran los horarios académicos (`schedules`).
+   - Se genera un registro maestro de la corrida de asignación (`assignment_runs`) con el estado `completed`, y se guardan las asignaciones actuales de los estudiantes en la tabla `assignments`.
+4. **Respuesta en UI**: El sistema actualiza el estado de la importación a "Aprobada" y despliega badges contextuales dinámicos.
 
 ## Pruebas
 

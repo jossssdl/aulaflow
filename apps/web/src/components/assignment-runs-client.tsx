@@ -117,7 +117,14 @@ export function AssignmentRunsClient({
               <h1 className="text-2xl font-semibold tracking-normal sm:text-3xl">
                 Corridas de asignacion
               </h1>
-              <p className="mt-1 text-sm text-muted-foreground">
+              <div className="flex flex-wrap items-center gap-3 text-sm font-medium mt-2">
+                <a href="/" className="text-muted-foreground hover:text-foreground transition-colors">Dashboard</a>
+                <span className="text-muted-foreground/50">·</span>
+                <a href="/imports" className="text-muted-foreground hover:text-foreground transition-colors">Importar Datos</a>
+                <span className="text-muted-foreground/50">·</span>
+                <a href="/assignment-runs" className="text-primary hover:text-primary/80 transition-colors">Corridas de Asignación</a>
+              </div>
+              <p className="mt-2 text-xs text-muted-foreground">
                 Valida asignaciones actuales, propone alternativas y explica conflictos.
               </p>
             </div>

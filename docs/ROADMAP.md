@@ -41,18 +41,19 @@
 - Persistencia de corridas en `assignment_runs`, `assignments`, `assignment_conflicts` y `assignment_warnings` cuando hay `DATABASE_URL`.
 - Resumen final con asignaciones conservadas, generadas, sugeridas, conflictos y advertencias.
 
-## Fase 4 - Importacion y edicion manual
+## Fase 4 - Importación y edición manual (COMPLETADO)
 
-- Pantalla `/imports` para cargar `.xlsx` y `.csv`.
-- Deteccion y mapeo de columnas.
-- Parser de horarios en texto como `7:00 A 13:00`.
-- Revision en `/imports/[id]/review`.
-- Correccion manual de grupos, alumnos, horarios, aulas, capacidad y observaciones.
-- Edicion manual de aula asignada por horario.
-- Validacion de cambios contra capacidad, reserva y disponibilidad.
-- Ejecucion del solver con datos importados.
-- Pruebas basicas del parser.
-- PDF/OCR queda como mejora futura.
+- [x] Pantalla `/imports` para cargar `.xlsx` y `.csv`.
+- [x] Detección y mapeo de columnas.
+- [x] Parser de horarios en texto como `7:00 A 13:00`.
+- [x] Revisión en `/imports/[id]/review`.
+- [x] Corrección manual de grupos, alumnos, horarios, aulas, capacidad y observaciones.
+- [x] Edición manual de aula asignada por horario.
+- [x] Validación de cambios contra capacidad, reserva y disponibilidad.
+- [x] Ejecución del solver con datos importados.
+- [x] Pruebas básicas del parser (con suite de vitest automatizada y activa).
+- [x] Persistencia transaccional en PostgreSQL de aulas, grupos, horarios y asignaciones.
+- [x] PDF/OCR queda como mejora futura.
 
 ## Fase 5 - Modo tecnico
 

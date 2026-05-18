@@ -53,18 +53,17 @@ La ruta `/assignment-runs` usa un flujo server-side mas cercano al producto fina
    - `assignment_warnings`
 7. La pantalla muestra resumen, asignaciones, conflictos, advertencias y explicaciones.
 
-## Flujo de importacion Fase 4
+## Flujo de importacion Fase 4 (Completado)
 
 1. `/imports` recibe un archivo `.xlsx` o `.csv`.
 2. El parser del frontend lee filas, detecta encabezados y permite mapear columnas.
 3. El archivo se transforma a entidades internas: `groups`, `rooms`, `schedules` y `current_assignments`.
-4. `/imports/[id]/review` permite corregir datos antes de aprobar.
-5. La revision se mantiene en almacenamiento local del navegador mientras no haya persistencia completa.
-6. El boton `Ejecutar validacion con estos datos` llama a `POST /api/imports/solve`.
-7. La API web reenvia el payload importado a `apps/solver-api` mediante `POST /solve`.
-8. El usuario revisa conflictos, advertencias y resumen final.
-
-Persistencia definitiva de importaciones a PostgreSQL/Supabase queda preparada como siguiente incremento: insertar o actualizar grupos, aulas, horarios y asignaciones con `institution_id` y `academic_period_id`.
+4. `/imports/[id]/review` permite corregir datos en caliente antes de aprobar.
+5. La revisión se mantiene en almacenamiento local del navegador (`localStorage`) para soportar edición reactiva en tiempo real.
+6. El botón `Ejecutar validacion con estos datos` llama a `POST /api/imports/solve` para previsualizar los resultados del solver.
+7. El botón `Confirmar importación` llama al endpoint transactional `/api/imports/approve` para persistir los datos de manera atómica e íntegra directamente en PostgreSQL.
+8. La API de Next.js realiza la inserción segura en base de datos (`rooms`, `groups`, `schedules`, `assignments`, `assignment_runs`) resolviendo el formateo a UUID compatible.
+9. El usuario visualiza la insignia de "Aprobada" y los cambios persistidos.
 
 ## Multi-institucion
 

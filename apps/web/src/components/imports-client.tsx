@@ -139,7 +139,14 @@ export function ImportsClient() {
           <h1 className="mt-2 text-2xl font-semibold tracking-normal sm:text-3xl">
             Importar datos escolares
           </h1>
-          <p className="mt-1 text-sm text-muted-foreground">
+          <div className="flex flex-wrap items-center gap-3 text-sm font-medium mt-2">
+            <a href="/" className="text-muted-foreground hover:text-foreground transition-colors">Dashboard</a>
+            <span className="text-muted-foreground/50">·</span>
+            <a href="/imports" className="text-primary hover:text-primary/80 transition-colors">Importar Datos</a>
+            <span className="text-muted-foreground/50">·</span>
+            <a href="/assignment-runs" className="text-muted-foreground hover:text-foreground transition-colors">Corridas de Asignación</a>
+          </div>
+          <p className="mt-2 text-xs text-muted-foreground">
             Carga Excel o CSV, revisa columnas y valida antes de guardar.
           </p>
         </header>
