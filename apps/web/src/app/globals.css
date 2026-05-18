@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: "Geist", "Geist Fallback", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono", "Geist Mono Fallback", ui-monospace, monospace;
+
+  --color-background: oklch(0.145 0.006 90);
+  --color-foreground: oklch(0.985 0.004 90);
+  --color-card: oklch(0.2 0.008 90);
+  --color-card-foreground: oklch(0.985 0.004 90);
+  --color-popover: oklch(0.2 0.008 90);
+  --color-popover-foreground: oklch(0.985 0.004 90);
+  --color-primary: oklch(0.72 0.14 170);
+  --color-primary-foreground: oklch(0.12 0.01 170);
+  --color-secondary: oklch(0.28 0.008 90);
+  --color-secondary-foreground: oklch(0.96 0.004 90);
+  --color-muted: oklch(0.25 0.008 90);
+  --color-muted-foreground: oklch(0.72 0.006 90);
+  --color-accent: oklch(0.65 0.16 80);
+  --color-accent-foreground: oklch(0.16 0.02 80);
+  --color-destructive: oklch(0.58 0.2 28);
+  --color-destructive-foreground: oklch(0.98 0.01 28);
+  --color-border: oklch(0.3 0.009 90);
+  --color-input: oklch(0.3 0.009 90);
+  --color-ring: oklch(0.72 0.14 170);
+  --radius: 0.5rem;
+  --radius-xs: calc(var(--radius) * 0.5);
+  --radius-sm: calc(var(--radius) * 0.75);
+  --radius-md: calc(var(--radius) * 0.875);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.5);
+}
+
+* {
+  border-color: var(--color-border);
+}
+
+html {
+  background: var(--color-background);
+}
+
+body {
+  min-height: 100vh;
+  background: var(--color-background);
+  color: var(--color-foreground);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+

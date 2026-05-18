@@ -1,0 +1,2 @@
+"""Classroom assignment solver API."""
+
