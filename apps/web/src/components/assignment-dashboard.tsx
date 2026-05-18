@@ -15,6 +15,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { useMemo, useState } from "react";
+import Link from "next/link";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -130,11 +131,11 @@ export function AssignmentDashboard() {
                 AulaFlow
               </h1>
               <div className="flex flex-wrap items-center gap-3 text-sm font-medium mt-2">
-                <a href="/" className="text-primary hover:text-primary/80 transition-colors">Dashboard</a>
+                <Link href="/" className="text-primary hover:text-primary/80 transition-colors">Dashboard</Link>
                 <span className="text-muted-foreground/50">·</span>
-                <a href="/imports" className="text-muted-foreground hover:text-foreground transition-colors">Importar Datos</a>
+                <Link href="/imports" className="text-muted-foreground hover:text-foreground transition-colors">Importar Datos</Link>
                 <span className="text-muted-foreground/50">·</span>
-                <a href="/assignment-runs" className="text-muted-foreground hover:text-foreground transition-colors">Corridas de Asignación</a>
+                <Link href="/assignment-runs" className="text-muted-foreground hover:text-foreground transition-colors">Corridas de Asignación</Link>
               </div>
               <p className="mt-2 text-xs text-muted-foreground">
                 Periodo 2026-1 · {demoPayload.schedules.length} bloques por evaluar

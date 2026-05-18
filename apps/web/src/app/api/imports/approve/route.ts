@@ -89,7 +89,7 @@ export async function POST(request: Request) {
             room.is_active ?? true,
             room.is_reservable ?? true,
             room.reserved_for_room_types || [],
-            room.notes || "Aula importada vía panel de administración",
+            "Aula importada vía panel de administración",
           ]
         );
       }
@@ -188,7 +188,7 @@ export async function POST(request: Request) {
         for (const assignment of payload.current_assignments) {
           const assignmentId = randomUUID();
           const scheduleId = toUuid(assignment.schedule_id);
-          const groupId = toUuid(assignment.group_id);
+          const groupId = toUuid(assignment.group_id || "");
           const roomId = toUuid(assignment.room_id);
 
           await client.query(
